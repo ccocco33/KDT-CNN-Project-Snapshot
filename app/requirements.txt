@@ -1,0 +1,8 @@
+opencv-contrib-python    # mediapipe 의존성. opencv-python 과 같은 cv2 를 쓰므로 하나만 설치
+numpy
+pillow
+mediapipe==0.10.18      # 라즈베리파이(Linux aarch64)와 맥에 모두 배포판이 있는 버전. numpy 2 미만을 요구함
+ai-edge-litert==2.2.0    # yunet_cnn 의 tflite 추론 (LiteRT)
+duckdb                   # 로그 분석 (analysis/)
+pytest
+pytest-cov               # 테스트 커버리지

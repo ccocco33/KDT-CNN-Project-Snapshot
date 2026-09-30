@@ -1,0 +1,32 @@
+{
+  "model_files": {
+    "fp32": "smile_fp32.tflite",
+    "dynamic": "smile_dynamic.tflite",
+    "int8": "smile_int8.tflite"
+  },
+  "xnnpack": {
+    "fp32": true,
+    "dynamic": true,
+    "int8": false
+  },
+  "input": {
+    "name": "face_rgb_0_255",
+    "size": 128,
+    "color": "RGB",
+    "range": [
+      0,
+      255
+    ],
+    "resize": "bilinear",
+    "bottom": 0.45,
+    "crop": "YuNet 박스 중심 정사각형(한 변 = 박스 높이)의 아래쪽 0.45 을 128x128 로 늘림"
+  },
+  "output": {
+    "meaning": "웃음 점수, 1 = 웃음",
+    "tta_flip": true
+  },
+  "distill_alpha": 0.5,
+  "threshold": 0.31816503405570984,
+  "threshold_rule": "val 에서 웃음 precision >= 0.95 인 값 중 recall 최대",
+  "train_source_size": 64
+}

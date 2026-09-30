@@ -1,0 +1,30 @@
+{
+  "model_files": {
+    "fp32": "occlusion_fp32.tflite",
+    "dynamic": "occlusion_dynamic.tflite",
+    "int8": "occlusion_int8.tflite"
+  },
+  "xnnpack": {
+    "fp32": true,
+    "dynamic": true,
+    "int8": false
+  },
+  "input": {
+    "name": "face_rgb_0_255",
+    "size": 128,
+    "color": "RGB",
+    "range": [
+      0,
+      255
+    ],
+    "resize": "bilinear",
+    "crop": "YuNet 박스 중심 정사각형, 한 변 = 박스 높이"
+  },
+  "output": {
+    "meaning": "가림 점수, 1 = 가림 (입이 안 보이거나 두 눈이 모두 안 보임)",
+    "tta_flip": true
+  },
+  "threshold": 0.5685601234436035,
+  "threshold_rule": "val 에서 보이는 얼굴을 가림으로 보는 비율 <= 0.02 인 값 중 가림 recall 최대",
+  "train_source_size": 64
+}

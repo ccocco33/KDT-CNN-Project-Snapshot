@@ -1,0 +1,37 @@
+{
+  "model_files": {
+    "fp32": "eye_fp32.tflite",
+    "dynamic": "eye_dynamic.tflite",
+    "int8": "eye_int8.tflite"
+  },
+  "xnnpack": {
+    "fp32": true,
+    "dynamic": true,
+    "int8": false
+  },
+  "input": {
+    "name": "upper_face_rgb_0_255",
+    "size": 160,
+    "color": "RGB",
+    "range": [
+      0,
+      255
+    ],
+    "resize": "bilinear",
+    "crop": "YuNet 박스 중심 정사각형(한 변 = 박스 높이)의 위쪽 0.6 을 160x160 로 늘림"
+  },
+  "output": {
+    "meaning": "눈 뜸 점수, 1 = 뜸 (선글라스류는 뜸)",
+    "tta_flip": true
+  },
+  "distill_alpha": 0.5,
+  "level_targets": {
+    "1": 1.0,
+    "2": 1.0,
+    "3": 0.0,
+    "4": 0.0
+  },
+  "threshold": 0.7825076580047607,
+  "threshold_rule": "val 에서 감은 눈 recall >= 0.95 인 값 중 눈 뜸 recall 최대",
+  "train_source_size": 64
+}

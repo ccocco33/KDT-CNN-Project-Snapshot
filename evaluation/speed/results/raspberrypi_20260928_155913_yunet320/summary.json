@@ -1,0 +1,301 @@
+{
+  "device": {
+    "host": "raspberrypi",
+    "model": "Raspberry Pi 5 Model B Rev 1.1",
+    "system": "Linux-6.6.62+rpt-rpi-2712-aarch64-with-glibc2.36",
+    "cpu_count": 4,
+    "mem_total_mb": 8052,
+    "python": "3.11.2",
+    "cv2": "4.10.0",
+    "packages": {
+      "opencv-python": "4.10.0.84",
+      "opencv-contrib-python": "4.10.0.84",
+      "numpy": "1.26.4",
+      "mediapipe": "0.10.18",
+      "ai-edge-litert": "2.2.0"
+    }
+  },
+  "args": {
+    "models": [
+      "yunet_landmark",
+      "yunet_cnn"
+    ],
+    "quant": [
+      "fp32"
+    ],
+    "hand": [
+      "fp32"
+    ],
+    "source": "wider",
+    "frames": 100,
+    "warmup": 10,
+    "repeat": 3,
+    "width": 640,
+    "tag": "yunet320"
+  },
+  "time": "20260928_155913",
+  "model_settings": {
+    "yunet_landmark": {
+      "NUM_THREADS": 4,
+      "SCORE_TH": 0.7,
+      "NUM_HANDS": 4,
+      "HAND_SCORE_TH": 0.5,
+      "model": "yunet_landmark",
+      "hand": "hand_yolo.tflite"
+    },
+    "yunet_cnn_fp32": {
+      "MODEL_VERSION": "v0.0.7",
+      "NUM_THREADS": 4,
+      "SCORE_TH": 0.7,
+      "NUM_HANDS": 4,
+      "HAND_SCORE_TH": 0.5,
+      "SMILE_SIZE": 128,
+      "EYE_SIZE": 160,
+      "OCC_SIZE": 128,
+      "model": "yunet_cnn",
+      "quant": "fp32",
+      "hand": "hand_yolo.tflite"
+    }
+  },
+  "thermal": [
+    {
+      "when": "start",
+      "temp": "temp=50.5'C",
+      "throttled": "throttled=0x0"
+    },
+    {
+      "when": "repeat 0 yunet_landmark",
+      "temp": "temp=53.2'C",
+      "throttled": "throttled=0x0"
+    },
+    {
+      "when": "repeat 0 yunet_cnn_fp32",
+      "temp": "temp=56.5'C",
+      "throttled": "throttled=0x0"
+    },
+    {
+      "when": "repeat 1 yunet_cnn_fp32",
+      "temp": "temp=57.6'C",
+      "throttled": "throttled=0x0"
+    },
+    {
+      "when": "repeat 1 yunet_landmark",
+      "temp": "temp=53.2'C",
+      "throttled": "throttled=0x0"
+    },
+    {
+      "when": "repeat 2 yunet_landmark",
+      "temp": "temp=53.8'C",
+      "throttled": "throttled=0x0"
+    },
+    {
+      "when": "repeat 2 yunet_cnn_fp32",
+      "temp": "temp=58.7'C",
+      "throttled": "throttled=0x0"
+    }
+  ],
+  "stages": {
+    "yunet_landmark": {
+      "PREVIEW": {
+        "n": 270,
+        "median_ms": 90.74480699928245,
+        "mean_ms": 98.80668417040228,
+        "p90_ms": 129.84811899987105,
+        "fps": 10.120772783705577,
+        "per_face_median_ms": 22.873333999996248,
+        "faces_mean": 4.455555555555556,
+        "parts_mean_ms": {
+          "face": 65.54121605929848,
+          "hand": 32.75783856674766
+        },
+        "resource": {
+          "proc_cpu_mean": 349.22244765451484,
+          "proc_cpu_max": 373.84673692643315,
+          "rss_max_mb": 453.203125,
+          "cores_mean": [
+            94.59793061296818,
+            83.58436221229857,
+            84.06291562890364,
+            88.87534790864552
+          ],
+          "cores_max": [
+            100.0,
+            90.9090909090909,
+            91.66666666666667,
+            100.0
+          ],
+          "cpu_total_mean": 87.78013909070393,
+          "sys_used_max_mb": 921.75
+        }
+      },
+      "PREPARE": {
+        "n": 270,
+        "median_ms": 180.9845954994671,
+        "mean_ms": 198.21897800739626,
+        "p90_ms": 298.3760685987363,
+        "fps": 5.044925617378001,
+        "per_face_median_ms": 44.37800900086586,
+        "faces_mean": 4.455555555555556,
+        "parts_mean_ms": {
+          "face": 65.6171854668409,
+          "landmark": 132.08635822962538,
+          "smile": 0.0018147815151476404
+        },
+        "resource": {
+          "proc_cpu_mean": 181.63014531598333,
+          "proc_cpu_max": 323.45709349590106,
+          "rss_max_mb": 453.578125,
+          "cores_mean": [
+            46.22572364706231,
+            45.95055346700083,
+            46.814898673451296,
+            44.87100205039757
+          ],
+          "cores_max": [
+            100.0,
+            100.0,
+            100.0,
+            85.71428571428571
+          ],
+          "cpu_total_mean": 45.965544459478,
+          "sys_used_max_mb": 921.53125
+        }
+      },
+      "CHECKING": {
+        "n": 270,
+        "median_ms": 176.3124510016496,
+        "mean_ms": 184.7818912479852,
+        "p90_ms": 298.9341946980858,
+        "fps": 5.411785717995262,
+        "per_face_median_ms": 42.206389600323746,
+        "faces_mean": 4.455555555555556,
+        "parts_mean_ms": {
+          "face": 65.44665590368419,
+          "landmark": 118.81046393716167,
+          "smile": 0.001832429458132807,
+          "eye": 0.002599292862147127
+        },
+        "resource": {
+          "proc_cpu_mean": 190.43707593027483,
+          "proc_cpu_max": 346.6954678148286,
+          "rss_max_mb": 453.578125,
+          "cores_mean": [
+            48.10047221269241,
+            48.54934729162091,
+            47.25875798424665,
+            46.790458091123526
+          ],
+          "cores_max": [
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "cpu_total_mean": 47.67475889492087,
+          "sys_used_max_mb": 921.359375
+        }
+      }
+    },
+    "yunet_cnn_fp32": {
+      "PREVIEW": {
+        "n": 270,
+        "median_ms": 52.88617650148808,
+        "mean_ms": 55.0916724814198,
+        "p90_ms": 66.93705940124346,
+        "fps": 18.151563656689852,
+        "per_face_median_ms": 14.021744374986156,
+        "faces_mean": 4.122222222222222,
+        "parts_mean_ms": {
+          "face": 12.454998018559612,
+          "occlusion": 10.133717051630137,
+          "hand": 32.42172199255341
+        },
+        "resource": {
+          "proc_cpu_mean": 350.1199224425739,
+          "proc_cpu_max": 373.3087526408485,
+          "rss_max_mb": 415.28125,
+          "cores_mean": [
+            85.79707215353525,
+            90.59053455668648,
+            83.73908627975992,
+            94.26449994165013
+          ],
+          "cores_max": [
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "cpu_total_mean": 88.59779823290796,
+          "sys_used_max_mb": 884.734375
+        }
+      },
+      "PREPARE": {
+        "n": 270,
+        "median_ms": 20.968942500985577,
+        "mean_ms": 22.921472688836662,
+        "p90_ms": 32.90580340144515,
+        "fps": 43.627214253429074,
+        "per_face_median_ms": 5.699437624571146,
+        "faces_mean": 4.122222222222222,
+        "parts_mean_ms": {
+          "face": 12.160396611296973,
+          "smile": 10.685427485373953
+        },
+        "resource": {
+          "proc_cpu_mean": 326.93498309536886,
+          "proc_cpu_max": 346.180991891401,
+          "rss_max_mb": 415.28125,
+          "cores_mean": [
+            76.83285444250356,
+            86.34816207184629,
+            80.1376615682601,
+            89.63918262679871
+          ],
+          "cores_max": [
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "cpu_total_mean": 83.23946517735219,
+          "sys_used_max_mb": 884.734375
+        }
+      },
+      "CHECKING": {
+        "n": 270,
+        "median_ms": 41.310949498438276,
+        "mean_ms": 44.30288604078804,
+        "p90_ms": 77.28639859960822,
+        "fps": 22.571892925425598,
+        "per_face_median_ms": 10.90834066781099,
+        "faces_mean": 4.122222222222222,
+        "parts_mean_ms": {
+          "face": 12.177807466718217,
+          "occlusion": 10.444691603738143,
+          "smile": 9.288491151986548,
+          "eye": 12.295834614862407
+        },
+        "resource": {
+          "proc_cpu_mean": 327.23220071328285,
+          "proc_cpu_max": 349.28846643204054,
+          "rss_max_mb": 415.28125,
+          "cores_mean": [
+            71.37472131304368,
+            85.37296985962058,
+            79.21923465895986,
+            93.73720760233914
+          ],
+          "cores_max": [
+            85.71428571428571,
+            100.0,
+            85.71428571428571,
+            100.0
+          ],
+          "cpu_total_mean": 82.42603335849083,
+          "sys_used_max_mb": 884.734375
+        }
+      }
+    }
+  }
+}

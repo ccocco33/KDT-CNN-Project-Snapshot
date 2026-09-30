@@ -1,0 +1,33 @@
+# 라즈베리파이 자원 제한 (기본 4코어, 8GB). 환경변수 PI_CPUS, PI_MEM 으로 변경
+# - 제한은 코어 수와 메모리만. 코어 1개의 속도는 호스트 CPU 그대로
+# - Docker Desktop 은 VM 자원(설정 > Resources)보다 큰 값을 줄 수 없음
+x-pi-limits: &pi-limits
+  cpus: "${PI_CPUS:-4}"
+  mem_limit: "${PI_MEM:-8g}"
+  memswap_limit: "${PI_MEM:-8g}"   # 스왑으로 메모리 제한을 넘지 않게
+
+services:
+  # 테스트, 로그 분석 (카메라, 화면 불필요)
+  test:
+    build: .
+    <<: *pi-limits
+    volumes:
+      - ./models:/app/models:ro    # 모델 파일 (커밋하지 않으므로 호스트에서 마운트)
+      - ./logs:/app/logs
+    command: pytest
+
+  # 앱 실행. Linux 호스트 전용 (카메라 장치, X 서버 필요)
+  app:
+    build: .
+    <<: *pi-limits
+    environment:
+      - DISPLAY=${DISPLAY}
+      - PHOTO_APP_MODE=${PHOTO_APP_MODE:-prod}
+    devices:
+      - /dev/video0:/dev/video0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./models:/app/models:ro
+      - ./photos:/app/photos
+      - ./logs:/app/logs
+    command: python -m photo_app
